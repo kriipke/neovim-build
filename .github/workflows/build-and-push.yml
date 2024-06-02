@@ -31,7 +31,9 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: ghcr.io/${{ github.repository_owner }}/neovim
-
+    - run: |
+        pwd
+        ls -al 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
