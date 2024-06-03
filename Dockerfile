@@ -20,11 +20,11 @@ RUN git clone --depth=1 https://github.com/neovim/neovim /tmp/neovim \
   && (cd /tmp/neovim; git fetch --all --tags --prune;) \
   && (cd /tmp/neovim; git checkout tags/v0.10.0;) \
   && (cd /tmp/neovim; make CMAKE_INSTALL_PREFIX=/neovim CMAKE_BUILD_TYPE=Release install;) \
-  && (cd /tmp/neovim; ls neovim;)
+  && find /neovim \
+  && find .
 
 FROM base AS final
 USER neovim
 WORKDIR /neovim
-RUN ls $(pwd)
 COPY --from=neovim /neovim .
 CMD [ "/bin/ash" ]
