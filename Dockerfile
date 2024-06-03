@@ -25,6 +25,6 @@ RUN git clone --depth=1 https://github.com/neovim/neovim /tmp/neovim \
 FROM base AS final
 USER neovim
 WORKDIR /neovim
-RUN ls $(pwd); ls /tmp/neovim
+RUN ls $(pwd)
 COPY --from=neovim /neovim .
 CMD [ "/bin/ash" ]
