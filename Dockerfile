@@ -22,7 +22,8 @@ RUN git clone --depth=1 https://github.com/neovim/neovim /tmp/neovim \
   && (cd /tmp/neovim; make CMAKE_INSTALL_PREFIX=/neovim CMAKE_BUILD_TYPE=Release install;)
 
 FROM base AS final
-COPY --from=neovim neovim $PREFIX
 USER neovim
 WORKDIR /neovim
+RUN ls $(pwd); ls /tmp/neovim
+COPY --from=neovim /neovim .
 CMD [ "/neovim/bin/nvim" ]
