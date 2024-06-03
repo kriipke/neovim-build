@@ -19,7 +19,7 @@ FROM build-deps AS neovim
 RUN git clone --depth=1 https://github.com/neovim/neovim /tmp/neovim \
   && (cd /tmp/neovim; git fetch --all --tags --prune;) \
   && (cd /tmp/neovim; git checkout tags/v0.10.0;) \
-  && (cd /tmp/neovim; make CMAKE_INSTALL_PREFIX=/neovim CMAKE_BUILD_TYPE=Release install;)
+  && (cd /tmp/neovim; make CMAKE_INSTALL_PREFIX=/neovim CMAKE_BUILD_TYPE=Release install;) \
   && (cd /tmp/neovim; ls neovim;)
 
 FROM base AS final
