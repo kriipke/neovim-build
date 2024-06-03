@@ -31,10 +31,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/neovim
-        
-    - run: |
-        pwd
-        ls -al 
+    
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
@@ -43,5 +40,12 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
+    - name: Generate artifact attestation
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+        subject-digest: ${{ steps.push.outputs.digest }}
+        push-to-registry: true
+        
     - name: Post build cleanup
       run: docker builder prune -f
